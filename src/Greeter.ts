@@ -1,15 +1,16 @@
 import Clock from './Clock'
-import { getHours } from 'date-fns'
+import MorningTimeRange from './MorningTimeRange'
 
 export default class Greeter {
     private clock: Clock
-    constructor(clock: Clock) {
+    private morningTimeRange: MorningTimeRange
+    constructor(clock: Clock, morningTimeRange: MorningTimeRange) {
         this.clock = clock
+        this.morningTimeRange = morningTimeRange
     }
     greet() {
         const currentTime = this.clock.getCurrentTime()
-        const currentHour = getHours(currentTime)
-        if (currentHour >= 5 && currentHour < 12) { // currentTimeが朝なら
+        if (this.morningTimeRange.contains(currentTime)) {
             return 'おはようございます'
         }
         return ''
